@@ -32,6 +32,37 @@ Sudoku.prototype.columnCzech = function(){
   }
   return true;
 };
+
+Sudoku.prototype.cellCzech = function(){
+ var flag;
+  for(var k=0;k<3;k++){
+    for(var m=0;m<3;m++){
+    flag=this.checkGrid(k*3,m*3);
+   if(flag===false) return false;
+ }
+}
+  return true;
+};
+
+Sudoku.prototype.checkGrid = function(i,j){
+    var cells = [];
+    for(var k=0;k<3;k++){
+      for(var m=0;m<3;m++){
+        var a = i+k;
+        var b = j+m;
+        cells.push(this.grid[a][b]);
+      }
+    }
+    var row9 = cells.sort();
+    for(var t = 0; t < row9.length; t++){
+      if(row9[t] != compareArray[t]){
+        return false;
+      }
+
+}
+return true;
+}
+/*
 Sudoku.prototype.cellCzech = function(){
   var cells = [];
   var row = [];
@@ -110,3 +141,4 @@ Sudoku.prototype.cellCzech = function(){
   }
   return true;
 };
+*/
