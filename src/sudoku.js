@@ -121,9 +121,30 @@ export class Sudoku {
     for(let m = 0; m < this.grid.length; m++){
       let tempRow = [];
       for(let n = 0; n < this.grid.length; n++){
-        tempRow.push(this.possibleSolutions(m,n));
+        if(this.isEmpty(m,n)){
+          tempRow.push(this.possibleSolutions(m,n));
+        } else {
+          tempRow.push([]);
+        }
       }
       monster.push(tempRow);
+    }
+    return monster;
+  }
+  spliceSolutions(){
+    let monster = this.create3DMonster();
+    for(let s = 0; s < monster.length; s++){
+      for(let n = 0; n < monster[s].length; n++){
+        if(monster[s][n].length === 1){
+          this.grid[s].splice(n,1,monster[s][n][0]);
+        }
+      }
+    }
+    return this.grid;
+  }
+  solveLooper(){
+    for(let a = 0, a < 5; a++){
+      this.spliceSolutions();
     }
   }
   // isSafe(testNo,i,j){
