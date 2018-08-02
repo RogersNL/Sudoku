@@ -113,7 +113,6 @@ export class Sudoku {
         solutions.push(z);
       }
     }
-    console.log(solutions);
     return solutions;
   }
   create3DMonster(){
@@ -132,21 +131,71 @@ export class Sudoku {
     return monster;
   }
   spliceSolutions(){
-    let monster = this.create3DMonster();
-    for(let s = 0; s < monster.length; s++){
-      for(let n = 0; n < monster[s].length; n++){
-        if(monster[s][n].length === 1){
-          this.grid[s].splice(n,1,monster[s][n][0]);
+    console.log("Hi!");
+    let replaceCase = true;
+    let i = 0;
+    while(replaceCase){
+      let monster = this.create3DMonster();
+      // replaceCase = false;
+      for(let s = 0; s < monster.length; s++){
+        for(let n = 0; n < monster[s].length; n++){
+          if(monster[s][n].length === 1){
+            this.grid[s].splice(n,1,monster[s][n][0]);
+            replaceCase = true;
+          }
         }
       }
+      replaceCase = false;
+      // for (var r = 0; r < 9; r++) {
+      //   console.log(this.grid[i]);
+      //   console.log("----");
+      // }
+      // console.log(this.grid);
+      i++;
+      console.log(i);
     }
-    return this.grid;
+    // return this.grid;
   }
-  solveLooper(){
-    for(let a = 0, a < 5; a++){
-      this.spliceSolutions();
-    }
-  }
+  // endLoop(lastGrid){
+  //   for(let y = 0; y < this.grid.length; y++){
+  //     for(let z = 0; z < this.grid[y].length; z++){
+  //       if(this.grid[y][z] != lastGrid[y][z]){
+  //         return false;
+  //       }
+  //     }
+  //   }
+  //   return true;
+  // }
+  // solveLooper(){
+  //   let i = 0;
+  //   while(i < 100){
+  //     this.spliceSolutions();
+  //     i++;
+  //   }
+  //   return this.checkWin();
+  // }
+  // checkWin(){
+  //   return this.rowCzech() && this.columnCzech() && this.cellCzech();
+  // }
+  // nextSolution(){
+  //   let testGrid = this.grid.slice();
+  //   for(let c = 0; c < testGrid.length; c++){
+  //     for(let d = 0; d < testGrid[c].length; d++){
+  //
+  //     }
+  //   }
+  // }
+  // hasNoSolution(){
+  //   for(let q = 0; q < grid.length; q++){
+  //     for(let r = 0; r < grid[q].length; r++){
+  //       if(this.possibleSolutions(q,r).length === 0){
+  //         return true;
+  //       }
+  //     }
+  //   }
+  //   return false;
+  // }
+
   // isSafe(testNo,i,j){
   //   let checkArray = this.grid.slice();
   //   let row = checkArray[i];
