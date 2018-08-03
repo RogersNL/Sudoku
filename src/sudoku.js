@@ -2,7 +2,7 @@ export class Sudoku {
   constructor(grid){
     this.grid = grid;
   }
-
+//Checks for complete board rows/columns/3x3 subgrids
   rowCzech(){
     const compareArray = [1,2,3,4,5,6,7,8,9];
 
@@ -66,7 +66,7 @@ export class Sudoku {
     }
     return true;
   }
-
+//Tests rows and columns for possible solutions for one square
   testRowAndColumn(testNo, rowNo, columnNo){
     for(let j = 0; j < this.grid[rowNo].length; j++){
       if(this.grid[rowNo][j] === testNo){
@@ -80,6 +80,7 @@ export class Sudoku {
     }
     return true;
   }
+  //Tests 3x3 subgrid for possible solutions in one square
   testSubGrid(testNo, rowNo, columnNo){
     let i = rowNo - rowNo%3;
     let j = columnNo - columnNo%3;
@@ -96,6 +97,8 @@ export class Sudoku {
     }
     return true;
   }
+
+  //Tests if space is empty
   isEmpty(i,j){
     for(let f = 1; f < 10; f++){
       if(this.grid[i][j] === f){
@@ -104,6 +107,7 @@ export class Sudoku {
     }
     return true;
   }
+  //Combines testRowAndColumn and testSubGrid to push possible solutions to an array
   possibleSolutions(i,j){
     let xPosition = i;
     let yPosition = j;
@@ -115,6 +119,7 @@ export class Sudoku {
     }
     return solutions;
   }
+  //Creates an array that mirrors the board with the possible solutions array for each square
   create3DMonster(){
     let monster = [];
     for(let m = 0; m < this.grid.length; m++){
@@ -130,22 +135,26 @@ export class Sudoku {
     }
     return monster;
   }
+  //Checks for solution arrays that contain 1 possible solution and splices that number into the game board
   spliceSolutions(){
     console.log("Hi!");
-    let replaceCase = true;
+    let replaceCase = 1;
     let i = 0;
-    while(replaceCase){
+    while(i < 30){
       let monster = this.create3DMonster();
-      // replaceCase = false;
+      replaceCase = 0;
       for(let s = 0; s < monster.length; s++){
         for(let n = 0; n < monster[s].length; n++){
           if(monster[s][n].length === 1){
             this.grid[s].splice(n,1,monster[s][n][0]);
-            replaceCase = true;
+            replaceCase = 1;
           }
         }
       }
-      replaceCase = false;
+      if(replaceCase === 0){
+        break;
+      }
+      // replaceCase = false;
       // for (var r = 0; r < 9; r++) {
       //   console.log(this.grid[i]);
       //   console.log("----");
